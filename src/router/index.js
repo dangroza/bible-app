@@ -10,6 +10,21 @@ const router = createRouter({
       component: HomeView,
     },
     {
+      path: "/bible-list",
+      name: "BibleList",
+      component: () => import("../components/BibleList.vue"),
+    },
+    {
+      path: "/chapter/:bibleId/:chapterId",
+      name: "BookChapter",
+      component: () => import("../components/BookChapter.vue"),
+    },
+    {
+      path: "/bible/:id",
+      name: "Bible",
+      component: () => import("../components/Bible.vue"),
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting
