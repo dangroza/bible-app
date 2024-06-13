@@ -1,11 +1,11 @@
 <template>
+  <header><h1>Bible {{bibleInfo?.name}}</h1></header>
   <div>
-    <h1>Bible {{bibleInfo?.name}}</h1>
-    <div v-for="bibleBook in bibleData" :key="bibleBook.id">
-      <h3>{{bibleBook.name}}</h3>
-      <p>{{bibleBook.nameLong}}</p>
-      <div v-for="chapter in bibleBook.chapters" :key="chapter.id">
-        <router-link :to="{ name: 'BookChapter', params: { bibleId: bibleInfo.id, chapterId: chapter.id } }">{{ chapter.number }}</router-link>
+    <div class="book-list" v-for="bibleBook in bibleData" :key="bibleBook.id">
+      <div class="book">Book: {{bibleBook.name}} <span class="description">{{bibleBook.nameLong}}</span></div>
+      <p></p>
+      <div class="chapter" v-for="chapter in bibleBook.chapters" :key="chapter.id">
+        <router-link class="chapter-link" :to="{ name: 'BookChapter', params: { bibleId: bibleInfo.id, chapterId: chapter.id } }">{{ chapter.number }}</router-link>
       </div>
     </div>
   </div>
@@ -43,3 +43,24 @@ onMounted(async () => {
 };*/
 
 </script>
+<style scoped>
+header h1 {
+  font-size: 1.5em;
+  color: #00a2ff;
+}
+div.book {
+  color: #c0c0c0;
+  font-weight: bold;
+}
+span.description {
+  color: #777777;
+}
+div.chapter {
+  padding: 4px;
+  float: left;
+}
+.book-list {
+  width: 100%;
+  float: left;
+}
+</style>
