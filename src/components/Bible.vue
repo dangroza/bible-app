@@ -4,8 +4,8 @@
     <div class="book-list" v-for="bibleBook in bibleData" :key="bibleBook.id">
       <div class="book">Book: {{bibleBook.name}} <span class="description">{{bibleBook.nameLong}}</span></div>
       <p></p>
-      <div class="chapter" v-for="chapter in bibleBook.chapters" :key="chapter.id">
-        <router-link class="chapter-link" :to="{ name: 'BookChapter', params: { bibleId: bibleInfo.id, chapterId: chapter.id } }">{{ chapter.number }}</router-link>
+      <div class="chapter" v-for="chapter in bibleBook.chapters" :key="chapter?.id">
+        <router-link class="chapter-link" :to="{ name: 'BookChapter', params: { bibleId: bibleInfo.id, chapterId: chapter?.id } }">{{ chapter?.number }}</router-link>
       </div>
     </div>
   </div>

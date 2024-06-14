@@ -1,7 +1,11 @@
 <template>
   <div>
     <h1> {{bookChapter?.reference}}</h1>
-    <RouterLink :to="previousPage(bookChapter)">Cap. {{ bookChapter?.previous?.number }}</RouterLink>
+    <nav>
+      <a :href="previousPage">Cap. {{ bookChapter?.previous?.number }}</a>
+      <a :href="nextPage">Cap. {{ bookChapter?.next?.number }}</a>
+      <a :href="bookPage">Back to book</a>
+    </nav>
     <div class="paragraph" v-for="bibleParagraph in bookChapter?.content" :key="bibleParagraph?.id">
       <template v-for="element in bibleParagraph?.items" :key="element?.id">
         {{formattedElement(element)}}
@@ -13,8 +17,7 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
-import { ref, onMounted } from 'vue';
-import { RouterLink } from "vue-router";
+import { ref, onMounted, computed } from 'vue';
 import bibleApi from "@/services/bibleApi";
 
 const route = useRoute();
@@ -28,9 +31,18 @@ onMounted(async () => {
     console.error('There was an error!', error);
   });
 });
-const previousPage = (chapter) => {
+const previousPage = computed(() => {
+  const chapter = bookChapter.value;
   return `/chapter/${chapter?.bibleId}/${chapter?.previous?.id}`;
-};
+});
+const nextPage = computed(() => {
+  const chapter = bookChapter.value;
+  return `/chapter/${chapter?.bibleId}/${chapter?.next?.id}`;
+});
+const bookPage = computed(() => {
+  const chapter = bookChapter.value;
+  return `/bible/${chapter?.bibleId}`;
+});
 const formattedElement = (element) => {
   // type: tag => if name char get the text, else verse number
   // type: text => verse text
@@ -56,6 +68,10 @@ html {
   padding: 5px;
   display: block;
   width: 100%;
+}
+nav a {
+  padding: 2px;
+  margin: 0 5px;
 }
 h1 {
   font-size: 1.5em;
