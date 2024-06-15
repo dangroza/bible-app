@@ -68,6 +68,7 @@ html {
   padding: 5px;
   display: block;
   width: 100%;
+  text-align: justify;
 }
 nav a {
   padding: 2px;
